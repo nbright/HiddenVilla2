@@ -1,0 +1,345 @@
+﻿@page "/yr-room/create"
+@page "/yr-room/edit/{Id:int}"
+
+@using Models;
+@using Business.Repository.IRepository;
+@using HiddenVilla_Server.Service.IService
+
+@inject IYRRoomRepository YRRoomRepository
+@inject IYRImagesRepository YRImagesRepository
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRunTime
+@inject IFileUpload FileUpload
+
+<div class="row mt-2 mb-5">
+    <h3 class="card-title text-info mb-3 ml-3">Create Hotel Room</h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="@YRRoomModel" OnValidSubmit="HandleYRRoomUpsert">
+                    <DataAnnotationsValidator />
+                    @*<ValidationSummary />*@
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="YRRoomModel.Name" class="form-control"></InputText>
+                        <ValidationMessage For="()=>YRRoomModel.Name"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Occupancy</label>
+                        <InputNumber @bind-Value="YRRoomModel.Occupancy" class="form-control"></InputNumber>
+                        <ValidationMessage For="()=>YRRoomModel.Occupancy"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Rate</label>
+                        <InputNumber @bind-Value="YRRoomModel.RegularRate" class="form-control"></InputNumber>
+                        <ValidationMessage For="()=>YRRoomModel.RegularRate"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Sq ft.</label>
+                        <InputText @bind-Value="YRRoomModel.SqFt" class="form-control"></InputText>
+                        <ValidationMessage For="()=>YRRoomModel.SqFt"></ValidationMessage>
+                    </div>
+                    <div class="form-group" style="height:250px;">
+                        <label>Details</label>
+                        @*<InputText @bind-Value="YRRoomModel.Details" class="form-control"></InputText>*@
+                        <BlazoredTextEditor @ref="@QuillHtml" Placeholder="Please enter room detail">
+                            <ToolbarContent>
+                                <select class="ql-header">
+                                    <option selected=""></option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                    <option value="5"></option>
+                                </select>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                </span>
+                            </ToolbarContent>
+                            <EditorContent></EditorContent>
+                        </BlazoredTextEditor>
+                        <ValidationMessage For="()=>YRRoomModel.Details"></ValidationMessage>
+                    </div>
+                    <div class="form-group" style="padding-top:70px;">
+                        <InputFile OnChange="HandleImageUpload" multiple></InputFile>
+                        <div class="row">
+                            @if (IsImageUploadProcessStarted)
+                            {
+                                <div class="col-md-12">
+                                    <span><i class="fa fa-spin fa-spinner"></i> Please wait.. Images are uploading...</span>
+                                </div>
+                            }
+                            @if (YRRoomModel.ImageUrls != null && YRRoomModel.ImageUrls.Count > 0)
+                            {
+                                int serial = 1;
+                                foreach (var roomImage in YRRoomModel.ImageUrls)
+                                {
+                                    <div class="col-md-2 mt-3">
+                                        <div class="room-image" style="background: url('@roomImage') 50% 50%">
+                                            <span class="room-image-title">@serial</span>
+                                        </div>
+                                        <button type="button" @onclick="()=>DeletePhote(roomImage)" class="btn btn-outline-danger btn-block mt-4">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    serial++;
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">@Title Room</button>
+                        <NavLink href="hotel-room" class="btn btn-secondary">Back to Index</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    private YRRoomDTO YRRoomModel { get; set; } = new YRRoomDTO();
+
+    private List<string> DeletedImageNames { get; set; } = new List<string>();
+    public BlazoredTextEditor QuillHtml { get; set; } = new BlazoredTextEditor();
+
+    private bool IsImageUploadProcessStarted { get; set; } = false;
+    private string Title { get; set; } = "Create";
+    private YRRoomImageDTO RoomImage { get; set; } = new YRRoomImageDTO();
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //var authenticationState = await AuthenticationState;
+        //if (!authenticationState.User.IsInRole(Common.SD.Role_Admin))
+        //{
+        //    var uri = new Uri(NavigationManager.Uri);
+        //    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={uri.LocalPath}");
+        //}
+        if (Id != null)
+        {
+            //updating
+            Title = "Update";
+            YRRoomModel = await YRRoomRepository.GetYRRoom(Id.Value);
+            //if (YRRoomModel?.YRRoomImages != null)
+            //{
+            //    YRRoomModel.ImageUrls = YRRoomModel.YRRoomImages.Select(u => u.RoomImageUrl).ToList();
+            //}
+
+        }
+        else
+        {
+            //create
+            YRRoomModel = new YRRoomDTO();
+        }
+
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+        bool loading = true;
+        while (loading)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(YRRoomModel.Details))
+                {
+                    await QuillHtml.LoadHTMLContent(YRRoomModel.Details);
+                }
+                loading = false;
+            }
+            catch
+            {
+                await Task.Delay(10);
+                loading = true;
+            }
+        }
+        await base.OnAfterRenderAsync(firstRender);
+        return;
+    }
+    public void SetHTML()
+    {
+        if (!string.IsNullOrEmpty(YRRoomModel.Details))
+        {
+            QuillHtml.LoadHTMLContent(YRRoomModel.Details);
+        }
+        StateHasChanged();
+    }
+
+
+    private async Task HandleYRRoomUpsert()
+    {
+        try
+        {
+            var roomDetailsByName = await YRRoomRepository.IsRoomUnique(YRRoomModel.Name, YRRoomModel.Id);
+
+            if (roomDetailsByName != null)
+            {
+                await JsRunTime.ToastrError("Room name already exists.");
+            }
+
+
+            if (YRRoomModel.Id != 0 && Title == "Update")
+            {
+                //update
+                YRRoomModel.Details = await QuillHtml.GetHTML();
+                var updateRoomResult = await YRRoomRepository.UpdateYRRoom(YRRoomModel.Id, YRRoomModel);
+                if (YRRoomModel.ImageUrls != null && YRRoomModel.ImageUrls.Any())
+                {
+                    if (DeletedImageNames != null && DeletedImageNames.Any())
+                    {
+                        foreach (var deletedName in DeletedImageNames)
+                        {
+
+                            var imageName = deletedName.Replace($"RoomImages/", "");
+                            var result = FileUpload.DeleteFile(imageName);
+                            await YRImagesRepository.DeleteYRRoomImageByImageUrl(deletedName);
+                        }
+                    }
+
+
+
+                    //await AddYRRoomImage(updateRoomResult);
+                }
+
+                await JsRunTime.ToastrSuccess("Hotel room updated successfully");
+            }
+            else
+            {
+                //create
+                YRRoomModel.Details = await QuillHtml.GetHTML();
+                var createdResult = await YRRoomRepository.CreateYRRoom(YRRoomModel);
+                //await AddYRRoomImage(createdResult);
+                await JsRunTime.ToastrSuccess("Hotel room created successfully");
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        NavigationManager.NavigateTo("hotel-room");
+    }
+
+
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        IsImageUploadProcessStarted = true;
+        try
+        {
+            var images = new List<string>();
+            if (e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".jpg" ||
+                       fileInfo.Extension.ToLower() == ".png" ||
+                       fileInfo.Extension.ToLower() == ".jpeg")
+                    {
+                        var uploadedImagePath = await FileUpload.UploadFile(file);
+                        images.Add(uploadedImagePath);
+                    }
+                    else
+                    {
+                        await JsRunTime.ToastrError("Please select .jpg/.jpeg/.png file only");
+                        return;
+                    }
+
+                }
+
+                if (images.Any())
+                {
+                    if (YRRoomModel.ImageUrls != null && YRRoomModel.ImageUrls.Any())
+                    {
+                        YRRoomModel.ImageUrls.AddRange(images);
+                    }
+                    else
+                    {
+                        YRRoomModel.ImageUrls = new List<string>();
+                        YRRoomModel.ImageUrls.AddRange(images);
+                    }
+                }
+                else
+                {
+                    await JsRunTime.ToastrError("Image uploading failed");
+                    return;
+                }
+            }
+            IsImageUploadProcessStarted = false;
+        }
+        catch (Exception ex)
+        {
+            await JsRunTime.ToastrError(ex.Message);
+            return;
+        }
+
+    }
+    /// <summary>
+    /// room id 를 가진진 RoomImage 생성후 디비로 보내어 이미지 추가
+    /// </summary>
+    /// <param name="roomDetails"></param>
+    /// <returns></returns>
+    //private async Task AddYRRoomImage(YRRoomDTO roomDetails)
+    //{
+    //    if (YRRoomModel.ImageUrls.Count < 1) return;
+
+    //    foreach (var imageUrl in YRRoomModel.ImageUrls)
+    //    {
+    //        if (YRRoomModel.YRRoomImages == null || YRRoomModel.YRRoomImages.Where(x => x.RoomImageUrl == imageUrl).Count() == 0)
+    //        {
+    //            RoomImage = new YRRoomImageDTO()
+    //            {
+    //                RoomId = roomDetails.Id,
+    //                RoomImageUrl = imageUrl
+    //            };
+    //            await HotelImagesRepository.CreateYRRoomImage(RoomImage);
+    //        }
+    //    }
+    //}
+
+    internal async Task DeletePhote(string imageUrl)
+    {
+
+        //try
+        //{
+        //    var imageIndex = YRRoomModel.ImageUrls.FindIndex(x => x == imageUrl);
+        //    var imageName = imageUrl.Replace($"RoomImages/", "");
+        //    if (YRRoomModel.Id == 0 && Title == "Create") //Create에서는 아직 저장전이므로 www 저장소에서만 지우면 된다.
+        //    {
+        //        var result = FileUpload.DeleteFile(imageName);
+        //    }
+        //    else                          //Update에서는 화면에서만 지우고 삭제할 이미지 목록을 가지고 있다가. 실제 업데이트시 삭제.
+        //    {
+        //        DeletedImageNames ??= new List<string>();
+        //        DeletedImageNames.Add(imageUrl);
+
+        //    }
+        //    YRRoomModel.ImageUrls.RemoveAt(imageIndex);
+        //}
+        //catch (Exception ex)
+        //{
+
+        //}
+    }
+}
