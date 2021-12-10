@@ -12,7 +12,7 @@
 @inject IFileUpload FileUpload
 
 <div class="row mt-2 mb-5">
-    <h3 class="card-title text-info mb-3 ml-3">Create Hotel Room</h3>
+    <h3 class="card-title text-info mb-3 ml-3">Create Your Room</h3>
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary">@Title Room</button>
-                        <NavLink href="hotel-room" class="btn btn-secondary">Back to Index</NavLink>
+                        <NavLink href="yr-room" class="btn btn-secondary">Back to Index</NavLink>
                     </div>
                 </EditForm>
             </div>
@@ -222,7 +222,7 @@
                     //await AddYRRoomImage(updateRoomResult);
                 }
 
-                await JsRunTime.ToastrSuccess("Hotel room updated successfully");
+                await JsRunTime.ToastrSuccess("Your room updated successfully");
             }
             else
             {
@@ -230,7 +230,7 @@
                 YRRoomModel.Details = await QuillHtml.GetHTML();
                 var createdResult = await YRRoomRepository.CreateYRRoom(YRRoomModel);
                 //await AddYRRoomImage(createdResult);
-                await JsRunTime.ToastrSuccess("Hotel room created successfully");
+                await JsRunTime.ToastrSuccess("Your room created successfully");
             }
         }
         catch (Exception ex)
@@ -238,7 +238,7 @@
 
         }
 
-        NavigationManager.NavigateTo("hotel-room");
+        NavigationManager.NavigateTo("yr-room");
     }
 
 
@@ -298,48 +298,48 @@
     /// <summary>
     /// room id 를 가진진 RoomImage 생성후 디비로 보내어 이미지 추가
     /// </summary>
-    /// <param name="roomDetails"></param>
-    /// <returns></returns>
-    //private async Task AddYRRoomImage(YRRoomDTO roomDetails)
-    //{
-    //    if (YRRoomModel.ImageUrls.Count < 1) return;
+    /// <param name = "roomDetails" ></ param >
+    /// < returns ></ returns >
+    private async Task AddYRRoomImage(YRRoomDTO roomDetails)
+    {
+        if (YRRoomModel.ImageUrls.Count < 1) return;
 
-    //    foreach (var imageUrl in YRRoomModel.ImageUrls)
-    //    {
-    //        if (YRRoomModel.YRRoomImages == null || YRRoomModel.YRRoomImages.Where(x => x.RoomImageUrl == imageUrl).Count() == 0)
-    //        {
-    //            RoomImage = new YRRoomImageDTO()
-    //            {
-    //                RoomId = roomDetails.Id,
-    //                RoomImageUrl = imageUrl
-    //            };
-    //            await HotelImagesRepository.CreateYRRoomImage(RoomImage);
-    //        }
-    //    }
-    //}
+        foreach (var imageUrl in YRRoomModel.ImageUrls)
+        {
+            if (YRRoomModel.YRRoomImages == null || YRRoomModel.YRRoomImages.Where(x => x.RoomImageUrl == imageUrl).Count() == 0)
+            {
+                RoomImage = new YRRoomImageDTO()
+                {
+                    RoomId = roomDetails.Id,
+                    RoomImageUrl = imageUrl
+                };
+                await YRImagesRepository.CreateYRRoomImage(RoomImage);
+            }
+        }
+    }
 
     internal async Task DeletePhote(string imageUrl)
     {
 
-        //try
-        //{
-        //    var imageIndex = YRRoomModel.ImageUrls.FindIndex(x => x == imageUrl);
-        //    var imageName = imageUrl.Replace($"RoomImages/", "");
-        //    if (YRRoomModel.Id == 0 && Title == "Create") //Create에서는 아직 저장전이므로 www 저장소에서만 지우면 된다.
-        //    {
-        //        var result = FileUpload.DeleteFile(imageName);
-        //    }
-        //    else                          //Update에서는 화면에서만 지우고 삭제할 이미지 목록을 가지고 있다가. 실제 업데이트시 삭제.
-        //    {
-        //        DeletedImageNames ??= new List<string>();
-        //        DeletedImageNames.Add(imageUrl);
+        try
+        {
+            var imageIndex = YRRoomModel.ImageUrls.FindIndex(x => x == imageUrl);
+            var imageName = imageUrl.Replace($"RoomImages/", "");
+            if (YRRoomModel.Id == 0 && Title == "Create") //Create에서는 아직 저장전이므로 www 저장소에서만 지우면 된다.
+            {
+                var result = FileUpload.DeleteFile(imageName);
+            }
+            else                          //Update에서는 화면에서만 지우고 삭제할 이미지 목록을 가지고 있다가. 실제 업데이트시 삭제.
+            {
+                DeletedImageNames ??= new List<string>();
+                DeletedImageNames.Add(imageUrl);
 
-        //    }
-        //    YRRoomModel.ImageUrls.RemoveAt(imageIndex);
-        //}
-        //catch (Exception ex)
-        //{
+            }
+            YRRoomModel.ImageUrls.RemoveAt(imageIndex);
+        }
+        catch (Exception ex)
+        {
 
-        //}
+        }
     }
 }

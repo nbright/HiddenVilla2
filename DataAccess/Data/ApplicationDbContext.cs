@@ -17,5 +17,6 @@ namespace DataAccess.Data
         public DbSet<YRRoom> YRRooms { get; set; }
         public DbSet<YRRoomImage> YRRoomImages { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<RoomOrderDetails> RoomOrderDetails { get; set; }
     }
 }

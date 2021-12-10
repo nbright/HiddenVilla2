@@ -4,7 +4,7 @@
 @inject IYRRoomRepository YRRoomrepository
 @inject NavigationManager NavigationManager;
 @inject IJSRuntime JsRuntime
-@*@inject HiddenVilla_Server.Service.IService.IFileUpload FileUpload*@
+@inject HiddenVilla_Server.Service.IService.IFileUpload FileUpload
 
 @*@attribute [Authorize(Roles = Common.SD.Role_Admin)]*@
 <div class="row mt-4">
@@ -36,10 +36,10 @@
                             <td>@room.Occupancy</td>
                             <td>@room.RegularRate.ToString("c")</td>
                             <td>@room.SqFt</td>
-                            @*<td>
-                                <NavLink href="@($"hotel-room/edit/{room.Id}")" class="btn btn-primary">Edit</NavLink>
+                            <td>
+                                <NavLink href="@($"yr-room/edit/{room.Id}")" class="btn btn-primary">Edit</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(room.Id)">Delete</button>
-                            </td>*@
+                            </td>
                         </tr>
                     }
                 }
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-@*<DeleteConfirmation IsParentComponentProcessing="IsProcessing" ConfirmationChanged="ConfirmDelete_Click"></DeleteConfirmation>*@
+<DeleteConfirmation IsParentComponentProcessing="IsProcessing" ConfirmationChanged="ConfirmDelete_Click"></DeleteConfirmation>
 
 @code {
     private IEnumerable<YRRoomDTO> YRRooms { get; set; } = new List<YRRoomDTO>();
@@ -71,23 +71,29 @@
         DeleteRoomId = roomId;
         await JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
-    //private async Task ConfirmDelete_Click(bool isConfirmed)
-    //{
-    //IsProcessing = true;
-    //if (isConfirmed && DeleteRoomId != null)
-    //{
-    //    YRRoomDTO hotelRoom = await YRRoomrepository.GetYRRoom(DeleteRoomId.Value);
-    //    foreach (var image in hotelRoom.YRRoomImages)
-    //    {
-    //        var imageName = image.RoomImageUrl.Replace($"RoomImages/", "");
-    //        FileUpload.DeleteFile(imageName);
-    //    }
+    private async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsProcessing = true;
+        if (isConfirmed && DeleteRoomId != null)
+        {
+            YRRoomDTO hotelRoom = await YRRoomrepository.GetYRRoom(DeleteRoomId.Value);
+            if (hotelRoom.YRRoomImages == null)
+            {
 
-    //    await YRRoomrepository.DeleteYRRoom(DeleteRoomId.Value);
-    //    await JsRuntime.ToastrSuccess("Hotel Room Deleted successfully");
-    //    YRRooms = await YRRoomrepository.GetAllYRRooms();
-    //}
-    //await JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
-    //IsProcessing = false;
-}
+            }
+            else
+            {
+                foreach (var image in hotelRoom.YRRoomImages)
+                {
+                    var imageName = image.RoomImageUrl.Replace($"RoomImages/", "");
+                    FileUpload.DeleteFile(imageName);
+                }
+            }
+            await YRRoomrepository.DeleteYRRoom(DeleteRoomId.Value);
+            await JsRuntime.ToastrSuccess("Hotel Room Deleted successfully");
+            YRRooms = await YRRoomrepository.GetAllYRRooms();
+        }
+        await JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        IsProcessing = false;
+    }
 }
