@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiddenVilla_Server", "Hidde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiddenVilla_Client", "HiddenVilla_Client\HiddenVilla_Client.csproj", "{82096343-F0F0-4CF6-99EE-62ABCE949284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{539E4EBA-96ED-47B8-B792-94DE1AE3D30E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{539E4EBA-96ED-47B8-B792-94DE1AE3D30E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{44BA2795-8762-493F-A586-A7C1FD50BF1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{44BA2795-8762-493F-A586-A7C1FD50BF1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{671BFB8C-6063-4A0B-A389-F18216848F11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{671BFB8C-6063-4A0B-A389-F18216848F11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiddenVilla_Api", "HiddenVilla_Api\HiddenVilla_Api.csproj", "{A5D458E7-D786-400C-BC6A-03511082DEC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D458E7-D786-400C-BC6A-03511082DEC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D458E7-D786-400C-BC6A-03511082DEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D458E7-D786-400C-BC6A-03511082DEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D458E7-D786-400C-BC6A-03511082DEC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
