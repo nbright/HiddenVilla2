@@ -1,6 +1,9 @@
 using Business.Repository;
 using Business.Repository.IRepository;
 using DataAccess.Data;
+using DataAcesss.Data;
+using HiddenVilla_Api.Helper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,10 +14,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HiddenVilla_Api
@@ -34,8 +39,39 @@ namespace HiddenVilla_Api
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            var appSettingsSection = Configuration.GetSection("APISettings");
+            services.Configure<APISettings>(appSettingsSection);
+
+            services.Configure<MailJetSettings>(Configuration.GetSection("MailJetSettings"));
+
+            var apiSettings = appSettingsSection.Get<APISettings>();
+            var key = Encoding.ASCII.GetBytes(apiSettings.SecretKey);
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = apiSettings.ValidAudience,
+                        ValidIssuer = apiSettings.ValidIssuer,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IYRRoomRepository, YRRoomRepository>();

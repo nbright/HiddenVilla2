@@ -22,6 +22,7 @@ namespace HiddenVilla_Api.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -62,13 +63,13 @@ namespace HiddenVilla_Api.Controllers
                 return BadRequest(new RegisterationResponseDTO
                 { Errors = errors, IsRegisterationSuccessful = false });
             }
-            var roleResult = await _userManager.AddToRoleAsync(user, SD.Role_Customer);
-            if (!roleResult.Succeeded)
-            {
-                var errors = roleResult.Errors.Select(e => e.Description);
-                return BadRequest(new RegisterationResponseDTO
-                { Errors = errors, IsRegisterationSuccessful = false });
-            }
+            //var roleResult = await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+            //if (!roleResult.Succeeded)
+            //{
+            //    var errors = roleResult.Errors.Select(e => e.Description);
+            //    return BadRequest(new RegisterationResponseDTO
+            //    { Errors = errors, IsRegisterationSuccessful = false });
+            //}
             return StatusCode(200);
         }
         [HttpPost]
