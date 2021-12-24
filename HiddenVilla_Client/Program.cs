@@ -1,3 +1,6 @@
+using Blazored.LocalStorage;
+using HiddenVilla_Client.Service;
+using HiddenVilla_Client.Service.IService;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +20,10 @@ namespace HiddenVilla_Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl")) });
+            builder.Services.AddScoped<IYRRoomService, YRRoomService>();
+            builder.Services.AddScoped<IRoomOrderDetailsService, RoomOrderDetailsService>();
+            builder.Services.AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
     }
