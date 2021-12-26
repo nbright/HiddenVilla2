@@ -33,9 +33,9 @@ namespace Business.Repository
             return await _db.SaveChangesAsync();
 
             
-            //hotelRoom.CreatedDate = DateTime.Now;
-            //hotelRoom.CreatedBy = "";
-            //var addedYRRoom = await _db.YRRooms.AddAsync(hotelRoom);
+            //yrRoom.CreatedDate = DateTime.Now;
+            //yrRoom.CreatedBy = "";
+            //var addedYRRoom = await _db.YRRooms.AddAsync(yrRoom);
             //await _db.SaveChangesAsync();
             //return _mapper.Map<YRRoom, YRRoomDTO>(addedYRRoom.Entity);
         }

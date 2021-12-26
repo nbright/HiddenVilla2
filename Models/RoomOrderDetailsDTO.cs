@@ -26,7 +26,7 @@ namespace Models
         [Required]
         public string Email { get; set; }
         public string Phone { get; set; }
-        public YRRoomDTO HotelRoomDTO { get; set; }
+        public YRRoomDTO YRRoomDTO { get; set; }
         public string Status { get; set; }
     }
 }

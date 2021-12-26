@@ -350,13 +350,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Data.YRRoomImage", b =>
                 {
-                    b.HasOne("DataAccess.Data.YRRoom", "HotelRoom")
-                        .WithMany("HotelRoomImages")
+                    b.HasOne("DataAccess.Data.YRRoom", "YRRoom")
+                        .WithMany("YRRoomImages")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("HotelRoom");
+                    b.Navigation("YRRoom");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -412,7 +412,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Data.YRRoom", b =>
                 {
-                    b.Navigation("HotelRoomImages");
+                    b.Navigation("YRRoomImages");
                 });
 #pragma warning restore 612, 618
         }

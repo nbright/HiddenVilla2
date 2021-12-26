@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HiddenVilla_Client.Model.ViewModel
 {
-    public class HotelRoomBookingVM
+    public class YRRoomBookingVM
     {
         public RoomOrderDetailsDTO OrderDetails { get; set; }
     }

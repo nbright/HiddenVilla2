@@ -18,9 +18,9 @@ namespace HiddenVilla_Client.Service
             _client = client;
         }
 
-        public async Task<YRRoomDTO> GetHotelRoomDetails(int roomId, string checkInDate, string checkOutDate)
+        public async Task<YRRoomDTO> GetYRRoomDetails(int roomId, string checkInDate, string checkOutDate)
         {
-            var response = await _client.GetAsync($"api/hotelroom/{roomId}?checkInDate={checkInDate}&checkOutDate={checkOutDate}");
+            var response = await _client.GetAsync($"api/yrroom/{roomId}?checkInDate={checkInDate}&checkOutDate={checkOutDate}");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -36,9 +36,9 @@ namespace HiddenVilla_Client.Service
 
         }
 
-        public async Task<IEnumerable<YRRoomDTO>> GetHotelRooms(string checkInDate, string checkOutDate)
+        public async Task<IEnumerable<YRRoomDTO>> GetYRRooms(string checkInDate, string checkOutDate)
         {
-            var response = await _client.GetAsync($"api/hotelroom?checkInDate={checkInDate}&checkOutDate={checkOutDate}");
+            var response = await _client.GetAsync($"api/yrroom?checkInDate={checkInDate}&checkOutDate={checkOutDate}");
             var content = await response.Content.ReadAsStringAsync();
             var rooms = JsonConvert.DeserializeObject<IEnumerable<YRRoomDTO>>(content);
             return rooms;

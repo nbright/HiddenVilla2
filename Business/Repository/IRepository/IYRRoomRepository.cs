@@ -9,8 +9,8 @@ namespace Business.Repository.IRepository
 {
     public interface IYRRoomRepository
     {
-        public Task<YRRoomDTO> CreateYRRoom(YRRoomDTO hotelRoomDTO);
-        public Task<YRRoomDTO> UpdateYRRoom(int roomId, YRRoomDTO hotelRoomDTO);
+        public Task<YRRoomDTO> CreateYRRoom(YRRoomDTO yrRoomDTO);
+        public Task<YRRoomDTO> UpdateYRRoom(int roomId, YRRoomDTO yrRoomDTO);
         public Task<YRRoomDTO> GetYRRoom(int roomId, string checkInDate = null, string checkOutDate = null);
         public Task<int> DeleteYRRoom(int roomId);
         public Task<IEnumerable<YRRoomDTO>> GetAllYRRooms(string checkInDate = null, string checkOutDate = null);

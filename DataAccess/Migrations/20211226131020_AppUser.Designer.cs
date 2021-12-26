@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211219235004_AddSign")]
-    partial class AddSign
+    [Migration("20211226131020_AppUser")]
+    partial class AppUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

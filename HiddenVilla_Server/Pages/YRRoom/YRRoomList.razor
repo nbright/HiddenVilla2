@@ -76,21 +76,21 @@
         IsProcessing = true;
         if (isConfirmed && DeleteRoomId != null)
         {
-            YRRoomDTO hotelRoom = await YRRoomrepository.GetYRRoom(DeleteRoomId.Value);
-            if (hotelRoom.YRRoomImages == null)
+            YRRoomDTO yrRoom = await YRRoomrepository.GetYRRoom(DeleteRoomId.Value);
+            if (yrRoom.YRRoomImages == null)
             {
 
             }
             else
             {
-                foreach (var image in hotelRoom.YRRoomImages)
+                foreach (var image in yrRoom.YRRoomImages)
                 {
                     var imageName = image.RoomImageUrl.Replace($"RoomImages/", "");
                     FileUpload.DeleteFile(imageName);
                 }
             }
             await YRRoomrepository.DeleteYRRoom(DeleteRoomId.Value);
-            await JsRuntime.ToastrSuccess("Hotel Room Deleted successfully");
+            await JsRuntime.ToastrSuccess("Your Room Deleted successfully");
             YRRooms = await YRRoomrepository.GetAllYRRooms();
         }
         await JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");

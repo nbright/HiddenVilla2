@@ -30,6 +30,6 @@ namespace DataAccess.Data
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        public virtual ICollection<YRRoomImage> HotelRoomImages { get; set; }
+        public virtual ICollection<YRRoomImage> YRRoomImages { get; set; }
     }
 }

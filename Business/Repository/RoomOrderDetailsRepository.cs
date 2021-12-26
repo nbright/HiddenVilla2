@@ -61,11 +61,11 @@ namespace Business.Repository
             try
             {
                 RoomOrderDetails roomOrder = await _db.RoomOrderDetails
-                    .Include(u => u.YRRoom).ThenInclude(x => x.HotelRoomImages)
+                    .Include(u => u.YRRoom).ThenInclude(x => x.YRRoomImages)
                     .FirstOrDefaultAsync(u => u.Id == roomOrderId);
 
                 RoomOrderDetailsDTO roomOrderDetailsDTO = _mapper.Map<RoomOrderDetails, RoomOrderDetailsDTO>(roomOrder);
-                roomOrderDetailsDTO.HotelRoomDTO.TotalDays = roomOrderDetailsDTO.CheckOutDate
+                roomOrderDetailsDTO.YRRoomDTO.TotalDays = roomOrderDetailsDTO.CheckOutDate
                     .Subtract(roomOrderDetailsDTO.CheckInDate).Days;
 
                 return roomOrderDetailsDTO;
