@@ -1,4 +1,4 @@
-﻿@page "/hotel/room-details/{Id:int}"
+﻿@page "/yr/room-details/{Id:int}"
 @inject IJSRuntime jsRuntime
 @inject ILocalStorageService localStorage
 @inject IYRRoomService yrRoomService
@@ -6,7 +6,7 @@
 @inject IRoomOrderDetailsService roomOrderDetailsService
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = SD.Role_Customer)]
-@if (HotelBooking?.OrderDetails?.YRRoomDTO?.YRRoomImages == null)
+@if (YRBooking?.OrderDetails?.YRRoomDTO?.YRRoomImages == null)
 {
 <div class="spinner"></div>
 }
@@ -18,81 +18,15 @@ else
         <div class="col-12 col-lg-7 p-4" style="border: 1px solid #fff">
             <div class="row px-2 text-success border-bottom">
                 <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Selected Room</p></div>
-                <div class="col-4 p-0"><a href="hotel/rooms" class="btn btn-secondary btn-block">Back to Room's</a></div>
+                <div class="col-4 p-0"><a href="yr/rooms" class="btn btn-secondary btn-block">Back to Room's</a></div>
             </div>
 
-            <div class="row">
-                <div class="col-6">
-                    <div id="" class="carousel slide mb-4 m-md-3 m-0 pt-3 pt-md-0" data-ride="carousel">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                @{
-                                        int imageIndex = 0;
-                                        int innerImageIndex = 0;
-                                }
-                                @foreach (var image in HotelBooking.OrderDetails.YRRoomDTO.YRRoomImages)
-                                    {
-                                        if (imageIndex == 0)
-                                        {
-                                <li data-target="#carouselExampleIndicators" data-slide-to="@imageIndex" class="active"></li>
 
-                                        }
-                                        else
-                                        {
-                                <li data-target="#carouselExampleIndicators" data-slide-to="@imageIndex"></li>
-                                        }
-                                        imageIndex++;
-                                    }
-                            </ol>
-                            <div class="carousel-inner">
-                                @foreach (var image in HotelBooking.OrderDetails.YRRoomDTO.YRRoomImages)
-                                    {
-                                        if (innerImageIndex == 0)
-                                        {
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100" style="border-radius:20px;" src="@image.RoomImageUrl" alt="First slide">
-                                </div>
-                                        }
-                                        else
-                                        {
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" style="border-radius:20px;" src="@image.RoomImageUrl" alt="First slide">
-                                </div>
-                                        }
-
-                                        innerImageIndex++;
-                                    }
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <span class="float-right pt-4">
-                        <span class="float-right">Max Occupancy : @HotelBooking.OrderDetails.YRRoomDTO.Occupancy adults </span><br />
-                        <span class="float-right pt-1">Villa Size : @HotelBooking.OrderDetails.YRRoomDTO.SqFt sqft</span><br />
-                        <h4 class="text-warning font-weight-bold pt-5">
-                            USD
-                            <span style="border-bottom:1px solid #ff6a00">
-                                @HotelBooking.OrderDetails.YRRoomDTO.TotalAmount.ToString("#,#.00#;(#,#.00#)")
-                            </span>
-                        </h4>
-                        <span class="float-right">Cost for @HotelBooking.OrderDetails.YRRoomDTO.TotalDays nights</span>
-                    </span>
-                </div>
-            </div>
             <div class="row p-2">
                 <div class="col-12">
-                    <p class="card-title text-warning" style="font-size:xx-large">@HotelBooking.OrderDetails.YRRoomDTO.Name</p>
+                    <p class="card-title text-warning" style="font-size:xx-large">@YRBooking.OrderDetails.YRRoomDTO.Name</p>
                     <p class="card-text" style="font-size:large">
-                        @((MarkupString)@HotelBooking.OrderDetails.YRRoomDTO.Details)
+                        @((MarkupString)YRBooking.OrderDetails.YRRoomDTO.Details)
                     </p>
                 </div>
 
@@ -100,49 +34,49 @@ else
         </div>
 
         <div class="col-12 col-lg-5 p-4 2 mt-4 mt-md-0" style="border: 1px solid #fff;">
-            <EditForm Model="HotelBooking" class="container" OnValidSubmit="HandleCheckout">
+            <EditForm Model="YRBooking" class="container" OnValidSubmit="HandleCheckout">
 
-                <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">Enter Details</p></div></div>
+                <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">예약정보입력</p></div></div>
 
                 <div class="form-group pt-2">
-                    <label class="text-warning">Name</label>
-                    <InputText @bind-Value="HotelBooking.OrderDetails.Name" type="text" class="form-control" />
+                    <label class="text-warning">이름</label>
+                    <InputText @bind-Value="YRBooking.OrderDetails.Name" type="text" class="form-control" />
                 </div>
                 <div class="form-group pt-2">
-                    <label class="text-warning">Phone</label>
-                    <InputText @bind-Value="HotelBooking.OrderDetails.Phone" type="text" class="form-control" />
+                    <label class="text-warning">핸드폰</label>
+                    <InputText @bind-Value="YRBooking.OrderDetails.Phone" type="text" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="text-warning">Email</label>
-                    <InputText @bind-Value="HotelBooking.OrderDetails.Email" type="text" class="form-control" />
+                    <label class="text-warning">이메일</label>
+                    <InputText @bind-Value="YRBooking.OrderDetails.Email" type="text" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="text-warning">Check in Date</label>
-                    <InputDate @bind-Value="HotelBooking.OrderDetails.CheckInDate" type="date" disabled class="form-control" />
+                    <label class="text-warning">체크인</label>
+                    <InputDate @bind-Value="YRBooking.OrderDetails.CheckInDate" type="date" disabled class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="text-warning">Check Out Date</label>
-                    <InputDate @bind-Value="HotelBooking.OrderDetails.CheckOutDate" type="date" disabled class="form-control" />
+                    <label class="text-warning">체크아웃</label>
+                    <InputDate @bind-Value="YRBooking.OrderDetails.CheckOutDate" type="date" disabled class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class="text-warning">No. of nights</label>
                     <select class="form-control" value="@NoOfNights" @onchange="HandleNoOfNightsChange">
                         @for (var i = 1; i <= 10; i++)
+                        {
+                            if (i == NoOfNights)
                             {
-                                if (i == NoOfNights)
-                                {
-                        <option value="@i" selected="selected">@i</option>
-                                }
-                                else
-                                {
-                        <option value="@i">@i</option>
-                                }
+                                <option value="@i" selected="selected">@i</option>
                             }
+                            else
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        }
                     </select>
+                    <label class="text-warning">박</label>
                 </div>
                 <div class="form-group">
 
-                    @if (HotelBooking.OrderDetails.YRRoomDTO.IsBooked)
+                    @if (YRBooking.OrderDetails.YRRoomDTO.IsBooked)
                         {
                     <input class="btn btn-secondary form-control" value="Sold Out" />
                         }
@@ -162,7 +96,7 @@ else
     [Parameter]
     public int? Id { get; set; }
 
-    public YRRoomBookingVM HotelBooking { get; set; } = new YRRoomBookingVM();
+    public YRRoomBookingVM YRBooking { get; set; } = new YRRoomBookingVM();
     private int NoOfNights { get; set; } = 1;
 
     protected override async Task OnInitializedAsync()
@@ -170,7 +104,7 @@ else
         try
         {
             await Task.Delay(5000);
-            HotelBooking.OrderDetails = new RoomOrderDetailsDTO();
+            YRBooking.OrderDetails = new RoomOrderDetailsDTO();
             if (Id != null)
             {
                 if (await localStorage.GetItemAsync<HomeVM>
@@ -178,25 +112,25 @@ else
                 {
                     var roomInitialInfo = await localStorage.GetItemAsync<HomeVM>
                         (SD.Local_InitialBooking);
-                    HotelBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
-                    roomInitialInfo.StartDate.ToString("MM/dd/yyyy"), roomInitialInfo.EndDate.ToString("MM/dd/yyyy"));
+                    YRBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
+                roomInitialInfo.StartDate.ToString("MM/dd/yyyy"), roomInitialInfo.EndDate.ToString("MM/dd/yyyy"));
                     NoOfNights = roomInitialInfo.NoOfNights;
-                    HotelBooking.OrderDetails.CheckInDate = roomInitialInfo.StartDate;
-                    HotelBooking.OrderDetails.CheckOutDate = roomInitialInfo.EndDate;
-                    HotelBooking.OrderDetails.YRRoomDTO.TotalDays = roomInitialInfo.NoOfNights;
-                    HotelBooking.OrderDetails.YRRoomDTO.TotalAmount =
-                    roomInitialInfo.NoOfNights * HotelBooking.OrderDetails.YRRoomDTO.RegularRate;
+                    YRBooking.OrderDetails.CheckInDate = roomInitialInfo.StartDate;
+                    YRBooking.OrderDetails.CheckOutDate = roomInitialInfo.EndDate;
+                    YRBooking.OrderDetails.YRRoomDTO.TotalDays = roomInitialInfo.NoOfNights;
+                    YRBooking.OrderDetails.YRRoomDTO.TotalAmount =
+                roomInitialInfo.NoOfNights * YRBooking.OrderDetails.YRRoomDTO.RegularRate;
                 }
                 else
                 {
-                    HotelBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
-                    DateTime.Now.ToString("MM/dd/yyyy"), DateTime.Now.AddDays(1).ToString("MM/dd/yyyy"));
+                    YRBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
+                DateTime.Now.ToString("MM/dd/yyyy"), DateTime.Now.AddDays(1).ToString("MM/dd/yyyy"));
                     NoOfNights = 1;
-                    HotelBooking.OrderDetails.CheckInDate = DateTime.Now;
-                    HotelBooking.OrderDetails.CheckOutDate = DateTime.Now.AddDays(1);
-                    HotelBooking.OrderDetails.YRRoomDTO.TotalDays = 1;
-                    HotelBooking.OrderDetails.YRRoomDTO.TotalAmount =
-                    HotelBooking.OrderDetails.YRRoomDTO.RegularRate;
+                    YRBooking.OrderDetails.CheckInDate = DateTime.Now;
+                    YRBooking.OrderDetails.CheckOutDate = DateTime.Now.AddDays(1);
+                    YRBooking.OrderDetails.YRRoomDTO.TotalDays = 1;
+                    YRBooking.OrderDetails.YRRoomDTO.TotalAmount =
+                    YRBooking.OrderDetails.YRRoomDTO.RegularRate;
                 }
             }
 
@@ -205,10 +139,10 @@ else
             {
                 var userInfo = await localStorage.GetItemAsync<UserDTO>
                     (SD.Local_UserDetails);
-                HotelBooking.OrderDetails.UserId = userInfo.Id;
-                HotelBooking.OrderDetails.Name = userInfo.Name;
-                HotelBooking.OrderDetails.Email = userInfo.Email;
-                HotelBooking.OrderDetails.Phone = userInfo.PhoneNo;
+                YRBooking.OrderDetails.UserId = userInfo.Id;
+                YRBooking.OrderDetails.Name = userInfo.Name;
+                YRBooking.OrderDetails.Email = userInfo.Email;
+                YRBooking.OrderDetails.Phone = userInfo.PhoneNo;
             }
         }
         catch (Exception e)
@@ -221,13 +155,13 @@ else
     private async Task HandleNoOfNightsChange(ChangeEventArgs e)
     {
         NoOfNights = Convert.ToInt32(e.Value.ToString());
-        HotelBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
-        HotelBooking.OrderDetails.CheckInDate.ToString("MM/dd/yyyy"),
-        HotelBooking.OrderDetails.CheckInDate.AddDays(NoOfNights).ToString("MM/dd/yyyy"));
+        YRBooking.OrderDetails.YRRoomDTO = await yrRoomService.GetYRRoomDetails(Id.Value,
+        YRBooking.OrderDetails.CheckInDate.ToString("MM/dd/yyyy"),
+        YRBooking.OrderDetails.CheckInDate.AddDays(NoOfNights).ToString("MM/dd/yyyy"));
 
-        HotelBooking.OrderDetails.CheckOutDate = HotelBooking.OrderDetails.CheckInDate.AddDays(NoOfNights);
-        HotelBooking.OrderDetails.YRRoomDTO.TotalDays = NoOfNights;
-        HotelBooking.OrderDetails.YRRoomDTO.TotalAmount = NoOfNights * HotelBooking.OrderDetails.YRRoomDTO.RegularRate;
+        YRBooking.OrderDetails.CheckOutDate = YRBooking.OrderDetails.CheckInDate.AddDays(NoOfNights);
+        YRBooking.OrderDetails.YRRoomDTO.TotalDays = NoOfNights;
+        YRBooking.OrderDetails.YRRoomDTO.TotalAmount = NoOfNights * YRBooking.OrderDetails.YRRoomDTO.RegularRate;
     }
 
     private async Task HandleCheckout()
@@ -241,18 +175,18 @@ else
         {
             //var paymentDTO = new StripePaymentDTO()
             //{
-            //    Amount = Convert.ToInt32(HotelBooking.OrderDetails.YRRoomDTO.TotalAmount * 100),
-            //    ProductName = HotelBooking.OrderDetails.YRRoomDTO.Name,
-            //    ReturnUrl = "/hotel/room-details/" + Id
+            //    Amount = Convert.ToInt32(YRBooking.OrderDetails.YRRoomDTO.TotalAmount * 100),
+            //    ProductName = YRBooking.OrderDetails.YRRoomDTO.Name,
+            //    ReturnUrl = "/yr/room-details/" + Id
             //};
 
             //var result = await stripePaymentService.CheckOut(paymentDTO);
 
-            //HotelBooking.OrderDetails.StripeSessionId = result.Data.ToString();
-            HotelBooking.OrderDetails.RoomId = HotelBooking.OrderDetails.YRRoomDTO.Id;
-            HotelBooking.OrderDetails.TotalCost = HotelBooking.OrderDetails.YRRoomDTO.TotalAmount;
+            //YRBooking.OrderDetails.StripeSessionId = result.Data.ToString();
+            YRBooking.OrderDetails.RoomId = YRBooking.OrderDetails.YRRoomDTO.Id;
+            YRBooking.OrderDetails.TotalCost = YRBooking.OrderDetails.YRRoomDTO.TotalAmount;
 
-            var roomOrderDetailsSaved = await roomOrderDetailsService.SaveRoomOrderDetails(HotelBooking.OrderDetails);
+            var roomOrderDetailsSaved = await roomOrderDetailsService.SaveRoomOrderDetails(YRBooking.OrderDetails);
 
             await localStorage.SetItemAsync(SD.Local_RoomOrderDetails, roomOrderDetailsSaved);
 
@@ -268,18 +202,18 @@ else
     private async Task<bool>
         HandleValidation()
     {
-        if (string.IsNullOrEmpty(HotelBooking.OrderDetails.Name))
+        if (string.IsNullOrEmpty(YRBooking.OrderDetails.Name))
         {
             await jsRuntime.ToastrError("Name cannot be empty");
             return false;
         }
-        if (string.IsNullOrEmpty(HotelBooking.OrderDetails.Phone))
+        if (string.IsNullOrEmpty(YRBooking.OrderDetails.Phone))
         {
             await jsRuntime.ToastrError("Phone cannot be empty");
             return false;
         }
 
-        if (string.IsNullOrEmpty(HotelBooking.OrderDetails.Email))
+        if (string.IsNullOrEmpty(YRBooking.OrderDetails.Email))
         {
             await jsRuntime.ToastrError("Email cannot be empty");
             return false;

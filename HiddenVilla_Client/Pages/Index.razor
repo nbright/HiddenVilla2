@@ -38,32 +38,28 @@ else
     </div>
     <EditForm Model="HomeModel" OnValidSubmit="SaveInitialData">
         <div class="row p-0 mx-0 mt-4">
-
             <div class="col-12 col-md-5  offset-md-1 pl-2  pr-2 pr-md-0">
                 <div class="form-group">
-                    <label>Check In Date</label>
+                    <label>체크인</label>
                     <InputDate min="@DateTime.Now.ToString("yyyy-MM-dd")" @bind-Value="HomeModel.StartDate" type="text" class="form-control" />
                 </div>
             </div>
 
             <div class="col-8 col-md-3 pl-2 pr-2">
                 <div class="form-group">
-                    <label>No. of nights</label>
                     <select class="form-control" @bind="HomeModel.NoOfNights">
                         @for (var i = 1; i <= 10; i++)
                         {
                             <option value="@i">@i</option>
                         }
                     </select>
+                    <label>박</label>
                 </div>
             </div>
-
             <div class="col-4 col-md-2 p-0 pr-2">
                 <div class="form-group">
                     <label>&nbsp;</label>
-
-                    <input type="submit" value="Go" class="btn btn-success btn-block" />
-
+                    <input type="submit" value="고!" class="btn btn-success btn-block" />
                 </div>
             </div>
 
