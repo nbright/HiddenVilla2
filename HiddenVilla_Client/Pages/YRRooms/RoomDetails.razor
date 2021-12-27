@@ -15,22 +15,6 @@ else
 <div class="mt-4 mx-4 px-0 px-md-5 mx-md-5">
 
     <div class="row p-2 my-3 " style="border-radius:20px; ">
-        <div class="col-12 col-lg-7 p-4" style="border: 1px solid #fff">
-            <div class="row px-2 text-success border-bottom">
-                <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Selected Room</p></div>
-                <div class="col-4 p-0"><a href="yr/rooms" class="btn btn-secondary btn-block">Back to Room's</a></div>
-            </div>
-            <div class="row p-2">
-                <div class="col-12">
-                    <p class="card-title text-warning" style="font-size:xx-large">@YRBooking.OrderDetails.YRRoomDTO.Name</p>
-                    <p class="card-text" style="font-size:large">
-                        @((MarkupString)YRBooking.OrderDetails.YRRoomDTO.Details)
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
         <div class="col-12 col-lg-5 p-4 2 mt-4 mt-md-0" style="border: 1px solid #fff;">
             <EditForm Model="YRBooking" class="container" OnValidSubmit="HandleCheckout">
                 <div class="row px-2 text-success border-bottom">
@@ -51,38 +35,58 @@ else
                         <InputText @bind-Value="YRBooking.OrderDetails.Name" type="text" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group pt-2">
-                    <label class="text-warning">핸드폰</label>
-                    <InputText @bind-Value="YRBooking.OrderDetails.Phone" type="text" class="form-control" />
+                <div class="form-group row px-2 pt-2">
+                    <div class="col-3 py-1">
+                        <p class="text-warning" style="font-size:large">핸드폰</p>
+                    </div>
+                    <div class="col-9 py-1">
+                        <InputText @bind-Value="YRBooking.OrderDetails.Phone" type="text" class="form-control" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="text-warning">이메일</label>
-                    <InputText @bind-Value="YRBooking.OrderDetails.Email" type="text" class="form-control" />
+                <div class="form-group row px-2 pt-2">
+                    <div class="col-3 py-1">
+                        <p class="text-warning" style="font-size:large">이메일</p>
+                    </div>
+                    <div class="col-9 py-0">
+                        <InputText @bind-Value="YRBooking.OrderDetails.Email" type="text" class="form-control" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="text-warning">체크인</label>
-                    <InputDate @bind-Value="YRBooking.OrderDetails.CheckInDate" type="date" disabled class="form-control" />
+                <div class="form-group row px-2">
+                    <div class="col-3 py-1">
+                        <p class="text-warning" style="font-size:large">체크인</p>
+                    </div>
+                    <div class="col-9 py-1">
+                        <InputDate @bind-Value="YRBooking.OrderDetails.CheckInDate" type="date" disabled class="form-control" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="text-warning">체크아웃</label>
-                    <InputDate @bind-Value="YRBooking.OrderDetails.CheckOutDate" type="date" disabled class="form-control" />
-                </div>
-                <div class="form-group">
-                    <select class="form-control" value="@NoOfNights" @onchange="HandleNoOfNightsChange">
-                        @for (var i = 1; i <= 10; i++)
-                        {
-                            if (i == NoOfNights)
+               
+                <div class="form-group row px-2">
+                    <div class="col-4 py-1">
+                        <p class="text-warning" style="font-size:large">체크아웃</p>
+                    </div>
+                    <div class="col-5 py-1">
+                        <InputDate @bind-Value="YRBooking.OrderDetails.CheckOutDate" type="date" disabled class="form-control" />
+                    </div>
+                    <div class="col-2 py-1">
+                        <select class="form-control" value="@NoOfNights" @onchange="HandleNoOfNightsChange">
+                            @for (var i = 1; i <= 10; i++)
                             {
-                                <option value="@i" selected="selected">@i</option>
+                                if (i == NoOfNights)
+                                {
+                                    <option value="@i" selected="selected">@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@i">@i</option>
-                            }
-                        }
-                    </select>
-                    <label class="text-warning">박</label>
+                        </select>
+                    </div>
+                    <div class="col-1 py-1">
+                        <p class="text-warning" style="font-size:large">박</p>
+                    </div>
                 </div>
+               
                 <div class="form-group">
 
                     @if (YRBooking.OrderDetails.YRRoomDTO.IsBooked)
@@ -91,7 +95,7 @@ else
                     }
                     else
                     {
-                        <button type="submit" class="btn btn-success form-control">Checkout Now</button>
+                        <button type="submit" class="btn btn-success form-control">체크아웃 Now</button>
                     }
                 </div>
             </EditForm>
@@ -112,7 +116,7 @@ else
     {
         try
         {
-            await Task.Delay(5000);
+            await Task.Delay(2000);
             YRBooking.OrderDetails = new RoomOrderDetailsDTO();
             if (Id != null)
             {
@@ -182,6 +186,7 @@ else
 
         try
         {
+
             //var paymentDTO = new StripePaymentDTO()
             //{
             //    Amount = Convert.ToInt32(YRBooking.OrderDetails.YRRoomDTO.TotalAmount * 100),
@@ -194,7 +199,7 @@ else
             //YRBooking.OrderDetails.StripeSessionId = result.Data.ToString();
             YRBooking.OrderDetails.RoomId = YRBooking.OrderDetails.YRRoomDTO.Id;
             YRBooking.OrderDetails.TotalCost = YRBooking.OrderDetails.YRRoomDTO.TotalAmount;
-
+            
             var roomOrderDetailsSaved = await roomOrderDetailsService.SaveRoomOrderDetails(YRBooking.OrderDetails);
 
             await localStorage.SetItemAsync(SD.Local_RoomOrderDetails, roomOrderDetailsSaved);
