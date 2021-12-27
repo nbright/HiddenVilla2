@@ -20,8 +20,6 @@ else
                 <div class="col-8 py-1"><p style="font-size:x-large;margin:0px;">Selected Room</p></div>
                 <div class="col-4 p-0"><a href="yr/rooms" class="btn btn-secondary btn-block">Back to Room's</a></div>
             </div>
-
-
             <div class="row p-2">
                 <div class="col-12">
                     <p class="card-title text-warning" style="font-size:xx-large">@YRBooking.OrderDetails.YRRoomDTO.Name</p>
@@ -35,12 +33,23 @@ else
 
         <div class="col-12 col-lg-5 p-4 2 mt-4 mt-md-0" style="border: 1px solid #fff;">
             <EditForm Model="YRBooking" class="container" OnValidSubmit="HandleCheckout">
+                <div class="row px-2 text-success border-bottom">
+                    <div class="col-6 py-1">
+                        <p class="card-title text-warning" style="font-size:x-large">@YRBooking.OrderDetails.YRRoomDTO.Name</p>
+                    </div>
+                    <div class="col-4 py-1">
+                        <p style="font-size:x-large;margin:0px;">예약입력</p>
+                    </div>
+                    <div class="col-2 p-0"><a href="yr/rooms" class="btn btn-secondary btn-block">뒤로</a></div>
+                </div>
 
-                <div class="row px-2 text-success border-bottom"><div class="col-7 py-1"><p style="font-size:x-large;margin:0px;">예약정보입력</p></div></div>
-
-                <div class="form-group pt-2">
-                    <label class="text-warning">이름</label>
-                    <InputText @bind-Value="YRBooking.OrderDetails.Name" type="text" class="form-control" />
+                <div class="form-group row px-2 pt-2">
+                    <div class="col-3 py-1">
+                        <p class="text-warning" style="font-size:large">이름</p>
+                    </div>
+                    <div class="col-9 py-1">
+                        <InputText @bind-Value="YRBooking.OrderDetails.Name" type="text" class="form-control" />
+                    </div>
                 </div>
                 <div class="form-group pt-2">
                     <label class="text-warning">핸드폰</label>
@@ -77,13 +86,13 @@ else
                 <div class="form-group">
 
                     @if (YRBooking.OrderDetails.YRRoomDTO.IsBooked)
-                        {
-                    <input class="btn btn-secondary form-control" value="Sold Out" />
-                        }
-                        else
-                        {
-                    <button type="submit" class="btn btn-success form-control">Checkout Now</button>
-                        }
+                    {
+                        <input class="btn btn-secondary form-control" value="Sold Out" />
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-success form-control">Checkout Now</button>
+                    }
                 </div>
             </EditForm>
         </div>

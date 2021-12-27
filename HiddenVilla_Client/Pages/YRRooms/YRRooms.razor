@@ -10,21 +10,21 @@
         <div class="pt-3 pb-2 px-5 mx-1 mx-md-0 bg-secondary">
             <DataAnnotationsValidator />
             <div class="row px-3 mx-3">
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-2">
                     <div class="form-group">
-                        <label class="text-warning">Check in Date</label>
+                        <label class="text-warning">체크인</label>
                         <InputDate @bind-Value="HomeModel.StartDate" class="form-control" />
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-2">
                     <div class="form-group">
-                        <label class="text-warning">Check Out Date</label>
+                        <label class="text-warning">체크아웃</label>
                         <input @bind="HomeModel.EndDate" disabled="disabled" readonly="readonly" type="date" class="form-control" />
                     </div>
                 </div>
-                <div class=" col-4 col-md-2">
+                <div class="col-5 col-md-5">
                     <div class="form-group">
-                        <label class="text-warning">No. of nights</label>
+
                         <select class="form-control" @bind="HomeModel.NoOfNights">
                             <option value="Select" selected disabled="disabled">(Select No. Of Nights)</option>
                             @for (var i = 1; i <= 10; i++)
@@ -34,9 +34,13 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="col-8 col-md-2">
-                    <div class="form-group" style="margin-top: 1.9rem !important;">
+                <div class="col-2 col-md-4">
+                    <div class="form-group">
+                        <label class="col-form-label-lg align-middle"> 박 </label>
+                    </div>
+                </div>
+                <div class="col-5 col-md-4">
+                    <div class="form-group" >
                         @if (IsProcessing)
                         {
                             <button class="btn btn-success btn-block form-control"><i class="fa fa-spin fa-spinner"></i>Processing...</button>

@@ -44,8 +44,7 @@ else
                     <InputDate min="@DateTime.Now.ToString("yyyy-MM-dd")" @bind-Value="HomeModel.StartDate" type="text" class="form-control" />
                 </div>
             </div>
-
-            <div class="col-8 col-md-3 pl-2 pr-2">
+            <div class="col-5 col-md-4 p-2 pr-2">
                 <div class="form-group">
                     <select class="form-control" @bind="HomeModel.NoOfNights">
                         @for (var i = 1; i <= 10; i++)
@@ -53,19 +52,22 @@ else
                             <option value="@i">@i</option>
                         }
                     </select>
-                    <label>박</label>
                 </div>
             </div>
-            <div class="col-4 col-md-2 p-0 pr-2">
+            <div class="col-2 col-md-4 p-2 pr-2">
                 <div class="form-group">
-                    <label>&nbsp;</label>
+                    <label class="col-form-label-lg align-middle"> 박 </label>
+                </div>
+            </div>
+            <div class="col-5 col-md-4 p-2 pr-2">
+                <div class="form-group">
                     <input type="submit" value="고!" class="btn btn-success btn-block" />
                 </div>
             </div>
 
         </div>
     </EditForm>
-   
+
 }
 
 @code{
@@ -74,8 +76,8 @@ else
     public bool IsProcessing { get; set; } = false;
     protected override async Task OnInitializedAsync()
     {
-       IsProcessing = true;
-       IsProcessing = false;
+        IsProcessing = true;
+        IsProcessing = false;
     }
 
 
