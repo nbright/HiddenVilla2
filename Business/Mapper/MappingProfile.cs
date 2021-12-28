@@ -18,8 +18,8 @@ namespace Business.Mapper
 
             CreateMap<YRRoomImage, YRRoomImageDTO>().ReverseMap();
 
-            //CreateMap<RoomOrderDetails, RoomOrderDetailsDTO>().ForMember(x => x.YRRoomDTO, opt => opt.MapFrom(c => c.YRRoom));
-            //CreateMap<RoomOrderDetailsDTO, RoomOrderDetails>();
+            CreateMap<RoomOrderDetails, RoomOrderDetailsDTO>().ForMember(x => x.YRRoomDTO, opt => opt.MapFrom(c => c.YRRoom));
+            CreateMap<RoomOrderDetailsDTO, RoomOrderDetails>();
 
         }
     }

@@ -43,6 +43,7 @@ namespace HiddenVilla_Server
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IYRRoomRepository, YRRoomRepository>();
             services.AddScoped<IYRImagesRepository, YRImagesRepository>();
+            services.AddScoped<IRoomOrderDetailsRepository, RoomOrderDetailsRepository>();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddRazorPages();
             services.AddServerSideBlazor();

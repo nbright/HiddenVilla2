@@ -17,10 +17,11 @@ namespace HiddenVilla_Api.Controllers
         private readonly IRoomOrderDetailsRepository _repository;
         private readonly IEmailSender _emailSender;
 
-        public RoomOrderController(IRoomOrderDetailsRepository repository, IEmailSender emailSender)
+        public RoomOrderController(IRoomOrderDetailsRepository repository)
+        //public RoomOrderController(IRoomOrderDetailsRepository repository, IEmailSender emailSender)
         {
             _repository = repository;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
         }
 
         [HttpPost]

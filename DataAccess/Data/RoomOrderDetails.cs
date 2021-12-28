@@ -9,8 +9,8 @@ namespace DataAccess.Data
         public int Id { get; set; }
         [Required]
         public string UserId { get; set; }
-        [Required]
-        public string StripeSessionId { get; set; }
+        //[Required]
+        //public string StripeSessionId { get; set; }
         [Required]
         public DateTime CheckInDate { get; set; }
         [Required]

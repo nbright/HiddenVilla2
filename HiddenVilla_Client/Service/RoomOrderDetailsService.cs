@@ -44,7 +44,7 @@ namespace HiddenVilla_Client.Service
             details.UserId = "dummy user";
             var content = JsonConvert.SerializeObject(details);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            await Task.Delay(5000);
+            //await Task.Delay(5000);
             var response = await _client.PostAsync("api/roomorder/create", bodyContent);
             string res = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)

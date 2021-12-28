@@ -94,32 +94,32 @@ namespace Business.Repository
 
         public async Task<bool> IsRoomBooked(int RoomId, string checkInDatestr, string checkOutDatestr)
         {
-            //try
-            //{
-            //    if (!string.IsNullOrEmpty(checkOutDatestr) && !string.IsNullOrEmpty(checkInDatestr))
-            //    {
-            //        DateTime checkInDate = DateTime.ParseExact(checkInDatestr, "MM/dd/yyyy", null);
-            //        DateTime checkOutDate = DateTime.ParseExact(checkOutDatestr, "MM/dd/yyyy", null);
+            try
+            {
+                if (!string.IsNullOrEmpty(checkOutDatestr) && !string.IsNullOrEmpty(checkInDatestr))
+                {
+                    DateTime checkInDate = DateTime.ParseExact(checkInDatestr, "yyyy. MM. dd", null);
+                    DateTime checkOutDate = DateTime.ParseExact(checkOutDatestr, "yyyy. MM. dd", null);
 
-            //        var existingBooking = await _db.RoomOrderDetails.Where(x => x.RoomId == RoomId && x.IsPaymentSuccessful &&
-            //           //check if checkin date that user wants does not fall in between any dates for room that is booked
-            //           ((checkInDate < x.CheckOutDate && checkInDate.Date >= x.CheckInDate)
-            //           //check if checkout date that user wants does not fall in between any dates for room that is booked
-            //           || (checkOutDate.Date > x.CheckInDate.Date && checkInDate.Date <= x.CheckInDate.Date)
-            //           )).FirstOrDefaultAsync();
+                    var existingBooking = await _db.RoomOrderDetails.Where(x => x.RoomId == RoomId && x.IsPaymentSuccessful &&
+                       //check if checkin date that user wants does not fall in between any dates for room that is booked
+                       ((checkInDate < x.CheckOutDate && checkInDate.Date >= x.CheckInDate)
+                       //check if checkout date that user wants does not fall in between any dates for room that is booked
+                       || (checkOutDate.Date > x.CheckInDate.Date && checkInDate.Date <= x.CheckInDate.Date)
+                       )).FirstOrDefaultAsync();
 
-            //        if (existingBooking != null)
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }
-            //    return true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+                    if (existingBooking != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return false;
         }
