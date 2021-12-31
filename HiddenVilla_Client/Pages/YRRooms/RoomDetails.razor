@@ -14,60 +14,60 @@ else
 {
 <div class="mt-4 mx-4 px-0 px-md-5 mx-md-5">
 
-    <div class="row p-2 my-3 " style="border-radius:20px; ">
-        <div class="col-12 col-lg-5 p-4 2 mt-4 mt-md-0" style="border: 1px solid #fff;">
+    <div class="row p-2" style="border-radius:20px; ">
+        <div class="col-12 col-lg-5 2 mt-4 mt-md-0" style="border: 1px solid #fff;">
             <EditForm Model="YRBooking" class="container" OnValidSubmit="HandleCheckout">
                 <div class="row text-success border-bottom">
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-1 my-1">
                         <p class="card-title text-warning" style="font-size:x-large">@YRBooking.OrderDetails.YRRoomDTO.Name</p>
                     </div>
-                    <div class="col-4 py-1">
-                        <p style="font-size:x-large;margin:0px;">예약입력</p>
+                    <div class="col-3 py-1 my-1">
+                        <p style="font-size:large;margin:0px;">예약입력</p>
                     </div>
-                    <div class="col-2 p-0"><a href="yr/rooms" class="btn btn-secondary btn-block">뒤로</a></div>
+                    <div class="col-3 py-1 my-1"><a href="yr/rooms" class="btn btn-secondary btn-block">뒤로</a></div>
                 </div>
 
-                <div class="form-group row py-0">
-                    <div class="col-2 px-0 py-0 mx-0">
-                        <p class="text-warning" style="font-size:large">이름</p>
+                <div class="form-group row my-3">
+                    <div class="col-3">
+                        <p class="text-warning" style="font-size: medium">이름</p>
                     </div>
-                    <div class="col-10 px-0 py-0 mx-0">
+                    <div class="col-9">
                         <InputText @bind-Value="YRBooking.OrderDetails.Name" type="text" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group row py-0 my-0" >
-                    <div class="col-2 px-0 py-0">
-                        <p class="text-warning" style="font-size:large">핸드폰</p>
+                <div class="form-group row" >
+                    <div class="col-3">
+                        <p class="text-warning" style="font-size: medium">핸드폰</p>
                     </div>
-                    <div class="col-10 px-0 py-0">
+                    <div class="col-9">
                         <InputText @bind-Value="YRBooking.OrderDetails.Phone" type="text" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-3 py-1">
-                        <p class="text-warning" style="font-size:large">이메일</p>
+                    <div class="col-3">
+                        <p class="text-warning" style="font-size: medium">이메일</p>
                     </div>
-                    <div class="col-9 py-0">
+                    <div class="col-9">
                         <InputText @bind-Value="YRBooking.OrderDetails.Email" type="text" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-3 py-1">
-                        <p class="text-warning" style="font-size:large">체크인</p>
+                    <div class="col-3">
+                        <p class="text-warning" style="font-size: medium">체크인</p>
                     </div>
-                    <div class="col-9 py-1">
+                    <div class="col-9">
                         <InputDate @bind-Value="YRBooking.OrderDetails.CheckInDate" type="date" disabled class="form-control" />
                     </div>
                 </div>
                
                 <div class="form-group row">
                     <div class="col-3">
-                        <p class="text-warning" style="font-size:large">체크아웃</p>
+                        <p class="text-warning" style="font-size:medium">체크아웃</p>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <InputDate @bind-Value="YRBooking.OrderDetails.CheckOutDate" type="date" disabled class="form-control" />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <select class="form-control" value="@NoOfNights" @onchange="HandleNoOfNightsChange">
                             @for (var i = 1; i <= 10; i++)
                             {
@@ -82,9 +82,7 @@ else
                             }
                         </select>
                     </div>
-                    <div class="col-1">
-                        <p class="text-warning" style="font-size:large">박</p>
-                    </div>
+                    @*<p class="text-warning" style="font-size:medium">박</p>*@
                 </div>
                
                 <div class="form-group">
