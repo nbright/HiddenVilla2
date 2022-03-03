@@ -1,5 +1,5 @@
-# HiddenVilla2
-다시 차근히 샘플구성
+# P4U
+Blazor 온라인 예약 사이트 Postgresql 로 디비 변경함.
 * 바인딩
 [@on{DOM EVENT}="{DELEGATE}"]
 Razor 구문을 사용하여 대리자 이벤트 처리기를 지정
