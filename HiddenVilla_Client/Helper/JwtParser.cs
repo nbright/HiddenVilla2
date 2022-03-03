@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client.Helper
+namespace P4U_Client.Helper
 {
     public static class JwtParser
     {

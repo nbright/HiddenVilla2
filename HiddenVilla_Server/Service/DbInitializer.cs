@@ -1,6 +1,6 @@
 ﻿using Common;
 using DataAccess.Data;
-using HiddenVilla_Server.Service.IService;
+using P4U_Server.Service.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Server.Service
+namespace P4U_Server.Service
 {
     public class DbInitializer : IDbInitializer
     {

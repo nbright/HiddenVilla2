@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Server.Service.IService
+namespace P4U_Server.Service.IService
 {
     public interface IDbInitializer
     {

@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(HiddenVilla_Server.Areas.Identity.IdentityHostingStartup))]
-namespace HiddenVilla_Server.Areas.Identity
+[assembly: HostingStartup(typeof(P4U_Server.Areas.Identity.IdentityHostingStartup))]
+namespace P4U_Server.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

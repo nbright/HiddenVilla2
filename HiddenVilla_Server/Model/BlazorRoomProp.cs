@@ -1,4 +1,4 @@
-﻿namespace HiddenVilla_Server.Model
+﻿namespace P4U_Server.Model
 {
     public class BlazorRoomProp
     {

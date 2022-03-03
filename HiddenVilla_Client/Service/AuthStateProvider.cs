@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Common;
-using HiddenVilla_Client.Helper;
+using P4U_Client.Helper;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client.Service
+namespace P4U_Client.Service
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {

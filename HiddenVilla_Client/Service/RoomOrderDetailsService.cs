@@ -1,4 +1,4 @@
-﻿using HiddenVilla_Client.Service.IService;
+﻿using P4U_Client.Service.IService;
 using Models;
 using Newtonsoft.Json;
 using System;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client.Service
+namespace P4U_Client.Service
 {
     public class RoomOrderDetailsService : IRoomOrderDetailsService
     {

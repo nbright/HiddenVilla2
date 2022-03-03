@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client.Helper
+namespace P4U_Client.Helper
 {
     public static class IJSRuntimeExtension
     {

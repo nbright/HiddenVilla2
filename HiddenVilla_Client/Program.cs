@@ -1,6 +1,6 @@
 using Blazored.LocalStorage;
-using HiddenVilla_Client.Service;
-using HiddenVilla_Client.Service.IService;
+using P4U_Client.Service;
+using P4U_Client.Service.IService;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client
+namespace P4U_Client
 {
     public class Program
     {

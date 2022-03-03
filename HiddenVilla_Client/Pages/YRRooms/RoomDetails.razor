@@ -185,16 +185,16 @@ else
         try
         {
 
-            //var paymentDTO = new StripePaymentDTO()
-            //{
-            //    Amount = Convert.ToInt32(YRBooking.OrderDetails.YRRoomDTO.TotalAmount * 100),
-            //    ProductName = YRBooking.OrderDetails.YRRoomDTO.Name,
-            //    ReturnUrl = "/yr/room-details/" + Id
-            //};
+@*            var paymentDTO = new StripePaymentDTO()
+            {
+                Amount = Convert.ToInt32(YRBooking.OrderDetails.YRRoomDTO.TotalAmount * 100),
+                ProductName = YRBooking.OrderDetails.YRRoomDTO.Name,
+                ReturnUrl = "/yr/room-details/" + Id
+            };
 
-            //var result = await stripePaymentService.CheckOut(paymentDTO);
+            var result = await stripePaymentService.CheckOut(paymentDTO);*@
 
-            //YRBooking.OrderDetails.StripeSessionId = result.Data.ToString();
+    //YRBooking.OrderDetails.StripeSessionId = result.Data.ToString();
             YRBooking.OrderDetails.RoomId = YRBooking.OrderDetails.YRRoomDTO.Id;
             YRBooking.OrderDetails.TotalCost = YRBooking.OrderDetails.YRRoomDTO.TotalAmount;
 
@@ -202,7 +202,9 @@ else
 
             await localStorage.SetItemAsync(SD.Local_RoomOrderDetails, roomOrderDetailsSaved);
 
-            
+
+
+
             //await jsRuntime.InvokeVoidAsync("redirectToCheckout", result.Data.ToString());
         }
         catch (Exception e)

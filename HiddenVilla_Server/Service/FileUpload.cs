@@ -1,4 +1,4 @@
-﻿using HiddenVilla_Server.Service.IService;
+﻿using P4U_Server.Service.IService;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Server.Service
+namespace P4U_Server.Service
 {
     public class FileUpload : IFileUpload
     {

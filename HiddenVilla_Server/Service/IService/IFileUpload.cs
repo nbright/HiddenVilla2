@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Server.Service.IService
+namespace P4U_Server.Service.IService
 {
     public interface IFileUpload
     {

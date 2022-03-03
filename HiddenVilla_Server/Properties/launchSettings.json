@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "HiddenVilla_Server": {
+    "P4U_Server": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

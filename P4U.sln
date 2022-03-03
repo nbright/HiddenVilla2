@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiddenVilla_Server", "HiddenVilla_Server\HiddenVilla_Server.csproj", "{15978E0A-7A3C-466F-8827-A1B56261EBEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P4U_Server", "HiddenVilla_Server\P4U_Server.csproj", "{15978E0A-7A3C-466F-8827-A1B56261EBEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiddenVilla_Client", "HiddenVilla_Client\HiddenVilla_Client.csproj", "{82096343-F0F0-4CF6-99EE-62ABCE949284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P4U_Client", "HiddenVilla_Client\P4U_Client.csproj", "{82096343-F0F0-4CF6-99EE-62ABCE949284}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{539E4EBA-96ED-47B8-B792-94DE1AE3D30E}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{EA8C62EA-6F7F-4065-9E62-21ED29767EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiddenVilla_Api", "HiddenVilla_Api\HiddenVilla_Api.csproj", "{A5D458E7-D786-400C-BC6A-03511082DEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P4U_Api", "HiddenVilla_Api\P4U_Api.csproj", "{A5D458E7-D786-400C-BC6A-03511082DEC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

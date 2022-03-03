@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HiddenVilla_Server.Areas.Identity.Pages.Account
+namespace P4U_Server.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {

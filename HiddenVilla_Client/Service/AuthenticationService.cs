@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Common;
-using HiddenVilla_Client.Service.IService;
+using P4U_Client.Service.IService;
 using Microsoft.AspNetCore.Components.Authorization;
 using Models;
 using Newtonsoft.Json;
@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Client.Service
+namespace P4U_Client.Service
 {
     public class AuthenticationService : IAuthenticationService
     {

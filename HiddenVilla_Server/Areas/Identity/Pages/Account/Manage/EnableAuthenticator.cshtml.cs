@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace HiddenVilla_Server.Areas.Identity.Pages.Account.Manage
+namespace P4U_Server.Areas.Identity.Pages.Account.Manage
 {
     public class EnableAuthenticatorModel : PageModel
     {
@@ -148,7 +148,7 @@ namespace HiddenVilla_Server.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("HiddenVilla_Server"),
+                _urlEncoder.Encode("P4U_Server"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

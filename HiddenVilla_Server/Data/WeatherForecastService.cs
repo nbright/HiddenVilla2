@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HiddenVilla_Server.Data
+namespace P4U_Server.Data
 {
     public class WeatherForecastService
     {
