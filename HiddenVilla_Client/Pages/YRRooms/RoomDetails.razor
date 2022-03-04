@@ -4,6 +4,7 @@
 @inject IYRRoomService yrRoomService
 @*@inject IStripePaymentService stripePaymentService*@
 @inject IRoomOrderDetailsService roomOrderDetailsService
+@inject NavigationManager navigationManager
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = SD.Role_Customer)]
 @if (YRBooking?.OrderDetails?.YRRoomDTO?.YRRoomImages == null)
@@ -89,7 +90,7 @@ else
 
                     @if (YRBooking.OrderDetails.YRRoomDTO.IsBooked)
                     {
-                        <input class="btn btn-secondary form-control" value="Sold Out" />
+                        <input class="btn btn-secondary form-control" value="대기중" />
                     }
                     else
                     {
@@ -202,7 +203,7 @@ else
 
             await localStorage.SetItemAsync(SD.Local_RoomOrderDetails, roomOrderDetailsSaved);
 
-
+            navigationManager.NavigateTo("/", true);
 
 
             //await jsRuntime.InvokeVoidAsync("redirectToCheckout", result.Data.ToString());

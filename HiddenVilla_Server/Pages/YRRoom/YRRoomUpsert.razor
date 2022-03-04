@@ -229,7 +229,7 @@
                 //create
                 YRRoomModel.Details = await QuillHtml.GetHTML();
                 var createdResult = await YRRoomRepository.CreateYRRoom(YRRoomModel);
-                //await AddYRRoomImage(createdResult);
+                await AddYRRoomImage(createdResult);
                 await JsRunTime.ToastrSuccess("Your room created successfully");
             }
         }

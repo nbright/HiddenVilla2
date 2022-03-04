@@ -100,8 +100,8 @@ namespace Business.Repository
                 {
                     DateTime checkInDate = DateTime.ParseExact(checkInDatestr, "yyyy. MM. dd", null);
                     DateTime checkOutDate = DateTime.ParseExact(checkOutDatestr, "yyyy. MM. dd", null);
-
-                    var existingBooking = await _db.RoomOrderDetails.Where(x => x.RoomId == RoomId && x.IsPaymentSuccessful &&
+                    //var existingBooking = await _db.RoomOrderDetails.Where(x => x.RoomId == RoomId && x.IsPaymentSuccessful && (IsPaymentSuccessful 나중에 다시고려
+                    var existingBooking = await _db.RoomOrderDetails.Where(x => x.RoomId == RoomId &&
                        //check if checkin date that user wants does not fall in between any dates for room that is booked
                        ((checkInDate < x.CheckOutDate && checkInDate.Date >= x.CheckInDate)
                        //check if checkout date that user wants does not fall in between any dates for room that is booked
