@@ -139,10 +139,10 @@
             //updating
             Title = "Update";
             YRRoomModel = await YRRoomRepository.GetYRRoom(Id.Value);
-            //if (YRRoomModel?.YRRoomImages != null)
-            //{
-            //    YRRoomModel.ImageUrls = YRRoomModel.YRRoomImages.Select(u => u.RoomImageUrl).ToList();
-            //}
+            if (YRRoomModel?.YRRoomImages != null)
+            {
+                YRRoomModel.ImageUrls = YRRoomModel.YRRoomImages.Select(u => u.RoomImageUrl).ToList();
+            }
 
         }
         else

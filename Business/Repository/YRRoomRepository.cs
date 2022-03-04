@@ -76,7 +76,7 @@ namespace Business.Repository
                 //YRRoomDTO yrRoom = _mapper.Map<YRRoom, YRRoomDTO>(
                 //    await _db.YRRooms.Include(x => x.YRRoomImages).FirstOrDefaultAsync(x => x.Id == roomId));
                 YRRoomDTO yrRoom = _mapper.Map<YRRoom, YRRoomDTO>(
-                    await _db.YRRooms.FirstOrDefaultAsync(x => x.Id == roomId));
+                    await _db.YRRooms.Include(x => x.YRRoomImages).FirstOrDefaultAsync(x => x.Id == roomId));
                 if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDatestr))
                 {
                     yrRoom.IsBooked = await IsRoomBooked(roomId, checkInDateStr, checkOutDatestr);
